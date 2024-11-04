@@ -6,7 +6,7 @@ A simple Angular-based banking application that allows users to manage multiple 
 
 - Create new user accounts (Chequing or Savings) with initial balance
 - Transfer funds between accounts
-- View transaction history
+- View transaction history in descending order (newest transaction first)
 - Form validations
 - Responsive design using Bootstrap
 - Custom reusable components

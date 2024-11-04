@@ -19,11 +19,13 @@ export class TransactionHistoryComponent {
   }
 
   filterTransactions() {
-    this.filteredTransactions = this.accountService.getTransactions().filter(t =>
-      !this.selectedAccountId ||
-      t.fromAccountId === this.selectedAccountId ||
-      t.toAccountId === this.selectedAccountId
-    );
+    this.filteredTransactions = this.accountService.getTransactions()
+      .filter(t =>
+        !this.selectedAccountId ||
+        t.fromAccountId === this.selectedAccountId ||
+        t.toAccountId === this.selectedAccountId
+      )
+      .reverse();
   }
 
   getAccountName(accountId: string): string {
