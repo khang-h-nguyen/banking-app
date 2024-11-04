@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <h2>Transfer Funds</h2>
+    <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label class="form-label">From Account</label>
+            <select class="form-select" formControlName="fromAccount">
+                <option value="">Select account</option>
+                <option *ngFor="let account of accounts" [value]="account.id">
+                    {{account.name}} ({{account.type}}) - Balance: ${{account.balance}}
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">To Account</label>
+            <select class="form-select" formControlName="toAccount">
+                <option value="">Select account</option>
+                <ng-container *ngFor="let account of accounts">
+                    <option [value]="account.id" *ngIf="account.id !== transferForm.get('fromAccount')?.value">
+                        {{account.name}} ({{account.type}}) - Balance: ${{account.balance}}
+                    </option>
+                </ng-container>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Amount</label>
+            <input type="number" class="form-control"
+                [class.is-invalid]="transferForm.get('amount')?.errors && transferForm.get('amount')?.touched"
+                formControlName="amount" placeholder="Enter amount to transfer">
+            <div class="invalid-feedback" *ngIf="transferForm.get('amount')?.errors?.['insufficientFunds']">
+                Transfer amount exceeds available balance
+            </div>
+        </div>
+
+        <div *ngIf="showSuccess" class="alert alert-success mt-3 mb-3">
+            Transfer completed successfully!
+        </div>
+
+        <app-custom-button type="chequing" [disabled]="!transferForm.valid">
+            Transfer Funds
+        </app-custom-button>
+    </form>
+</div>

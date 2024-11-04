@@ -1,0 +1,39 @@
+<div class="container mt-4">
+    <h2>Create New Account</h2>
+    <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label class="form-label">Account Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Enter account name">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Account Type</label>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" value="chequing" formControlName="type" id="chequing">
+                <label class="form-check-label" for="chequing">Chequing</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" value="savings" formControlName="type" id="savings">
+                <label class="form-check-label" for="savings">Savings</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Initial Balance</label>
+            <input type="number" class="form-control" formControlName="balance" min="0" step="0.01"
+                placeholder="Enter initial balance">
+        </div>
+
+        <div *ngIf="showSuccess" class="alert alert-success mt-3">
+            Account created successfully!
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+        </div>
+
+        <app-custom-button [type]="accountForm.get('type')?.value" [disabled]="!accountForm.valid">
+            Create Account
+        </app-custom-button>
+    </form>
+</div>
